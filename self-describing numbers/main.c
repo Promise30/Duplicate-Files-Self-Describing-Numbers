@@ -60,6 +60,7 @@ int self_describing(int number)
     {
         number_array[index] = strNum[index] - '0';
     }
+
     // STORE A RANGE OF DIGITS 0-<length of the string Number and store the value in an arrsy
     for (int digit = 0; digit < strLength; digit++)
     {
@@ -70,13 +71,18 @@ int self_describing(int number)
     int strToNum = atoi(strNum);
 
     int countDigits[strLength];
-
+    int value;
+    // printf("Printing value of the result of count occurence function: ");
     for (int a = 0; a < strLength; a++)
     {
-        int value = countOccurence(strToNum, digitsList[a]);
+        value = countOccurence(strToNum, digitsList[a]);
+        // printf("%d \n", value);
         countDigits[a] = value;
     }
-
+    // LOOPING THROUGH THE VALUE OF THE ARRAY CONTAINING OUTPUT WHEN PASSED THROUGH COUNTOCCURENCE FUNCTION
+    /*for(int c=0; c < strLength; c++){
+        printf("Output: %d\n", )
+    }*/
     // CONVERT THE FIRST ARRAY CONTAINING SINGLE DIGITS INTO A SINGLE WHOLE VALUE
     int var1, var2 = 0;
     for (var1 = 0; var1 < strLength; var1++)
@@ -90,7 +96,7 @@ int self_describing(int number)
     {
         var4 = 10 * var4 + countDigits[var3];
     }
-    printf("%d\n", var4);
+    // printf("%d\n", var4);
 
     if (var2 != var4)
     {
@@ -101,20 +107,16 @@ int self_describing(int number)
 
 int countOccurence(int intNumber, int singleInt)
 {
-    int remainder;
-    int temp;
-    temp = intNumber;
-    int counter;
-
-    while (temp != 0)
+    if (intNumber <= 0)
     {
-        counter = 0;
-        remainder = temp % 10;
-        if (remainder == singleInt)
-        {
-            counter++;
-        }
-        temp /= 10;
+        return 0;
     }
-    return counter;
+
+    int remainder = intNumber % 10;
+
+    if (remainder == singleInt)
+    {
+        return 1 + countOccurence(intNumber / 10, singleInt);
+    }
+    return countOccurence(intNumber / 10, singleInt);
 }

@@ -54,7 +54,6 @@ int main()
                 j++;
             }
         }
-
         if (count == 2)
         {
             char strRes[50];
